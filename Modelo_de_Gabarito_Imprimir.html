@@ -77,37 +77,16 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Estilos para impressão */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            
-            .container {
-                max-width: none;
-            }
-            
-            .header, .controls {
-                display: none;
-            }
-            
-            .gabarito {
-                page-break-inside: avoid;
-                margin: 0;
-                box-shadow: none;
-            }
-        }
-
+        /* Estilos para o gabarito em si (visualização na tela e base para impressão) */
         .gabarito {
             background: white;
-            width: 210mm; /* A4 width */
-            min-height: 297mm; /* A4 height */
-            margin: 0 auto;
+            width: 210mm; /* Largura A4 */
+            min-height: 297mm; /* Altura A4 */
+            margin: 20px auto; /* Centraliza na tela com margem para visualização */
             position: relative;
-            padding: 20mm;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-radius: 5px;
+            padding: 20mm; /* Margens internas para o conteúdo do gabarito */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Sombra para visualização na tela */
+            border-radius: 5px; /* Apenas para visualização na tela */
         }
 
         /* Marcadores de canto */
@@ -116,7 +95,7 @@
             width: 15mm;
             height: 15mm;
             background: black;
-            border-radius: 50%;
+            border-radius: 50%; /* Faz círculos, se quiser quadrados, remova */
         }
 
         .corner-marker.top-left {
@@ -145,36 +124,36 @@
             width: 8mm;
             height: 8mm;
             background: black;
-            border-radius: 50%;
+            border-radius: 50%; /* Faz círculos */
         }
 
         .side-marker.left {
-            left: 10mm;
+            left: 10mm; /* Ajustado para ficar na mesma linha dos marcadores de canto */
             top: 50%;
             transform: translateY(-50%);
         }
 
         .side-marker.right {
-            right: 10mm;
+            right: 10mm; /* Ajustado para ficar na mesma linha dos marcadores de canto */
             top: 50%;
             transform: translateY(-50%);
         }
 
         .gabarito-header {
             text-align: center;
-            margin-bottom: 20mm;
-            padding-top: 10mm;
+            margin-bottom: 20mm; /* Espaço antes das infos do aluno */
+            padding-top: 0; /* O padding do .gabarito já cuida da margem superior */
         }
 
         .gabarito-title {
-            font-size: 24px;
+            font-size: 24px; /* Ajustável conforme necessidade */
             font-weight: bold;
             margin-bottom: 5mm;
             text-transform: uppercase;
         }
 
         .gabarito-subtitle {
-            font-size: 14px;
+            font-size: 14px; /* Ajustável */
             color: #666;
             margin-bottom: 3mm;
         }
@@ -188,7 +167,7 @@
 
         .student-info h3 {
             margin-bottom: 5mm;
-            font-size: 16px;
+            font-size: 16px; /* Ajustável */
         }
 
         .info-row {
@@ -205,14 +184,14 @@
         .info-line {
             flex: 1;
             border-bottom: 1px solid #333;
-            height: 20px;
+            height: 20px; /* Altura da linha para escrita */
             margin-left: 5mm;
         }
 
         .questions-grid {
             display: grid;
-            gap: 5mm;
-            margin-top: 10mm;
+            gap: 5mm; /* Espaço entre as linhas de questão */
+            /* margin-top: 10mm;  Removido, pois student-info já tem margin-bottom */
         }
 
         .question-row {
@@ -221,23 +200,27 @@
             padding: 2mm 0;
             border-bottom: 1px solid #eee;
         }
+        .question-row:last-child {
+            border-bottom: none; /* Remove borda da última questão */
+        }
+
 
         .question-number {
             font-weight: bold;
-            min-width: 15mm;
+            min-width: 15mm; /* Espaço para o número da questão */
             font-size: 14px;
         }
 
         .options-container {
             display: flex;
-            gap: 8mm;
+            gap: 8mm; /* Espaço entre as opções A, B, C... */
             margin-left: 5mm;
         }
 
         .option {
             display: flex;
             align-items: center;
-            gap: 2mm;
+            gap: 2mm; /* Espaço entre o círculo e a letra */
         }
 
         .option-circle {
@@ -248,19 +231,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
+            /* Letra dentro do círculo removida para preenchimento manual */
         }
 
         .option-letter {
             font-weight: bold;
-            font-size: 12px;
+            font-size: 12px; /* Tamanho da letra da alternativa */
         }
 
         .instructions {
-            margin-top: 10mm;
+            margin-top: 15mm; /* Espaço após as questões */
             padding: 5mm;
-            background: #f9f9f9;
+            background: #f9f9f9; /* Leve destaque para instruções, não impresso em P&B */
             border-radius: 3mm;
             font-size: 11px;
             line-height: 1.4;
@@ -278,11 +260,58 @@
             grid-template-columns: 1fr;
         }
 
-        @media (max-width: 600px) {
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0mm; /* Tenta remover as margens do navegador */
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                color: black; /* Garante texto preto na impressão */
+                -webkit-print-color-adjust: exact !important; /* Força cores de fundo e bordas no Chrome/Safari */
+                print-color-adjust: exact !important; /* Força cores de fundo e bordas (padrão) */
+            }
+            
+            .container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .header, .controls {
+                display: none !important; /* Garante que não sejam impressos */
+            }
+            
+            .gabarito {
+                page-break-inside: avoid; /* Tenta manter o gabarito em uma única página */
+                margin: 0 auto; /* Centraliza na página de impressão */
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 210mm; /* Garante dimensões A4 na impressão */
+                height: 297mm; /* Garante dimensões A4 na impressão */
+                padding: 20mm; /* Mantém as margens internas definidas */
+            }
+
+            .instructions {
+                background: none !important; /* Remove fundo das instruções na impressão */
+            }
+
+             /* Garante que os marcadores (pretos) sejam impressos */
+            .corner-marker, .side-marker {
+                background: black !important;
+            }
+        }
+
+        @media (max-width: 600px) { /* Responsividade para tela pequena */
             .gabarito {
                 width: 100%;
                 min-height: auto;
-                padding: 15mm;
+                padding: 10mm; /* Reduz padding em telas menores */
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
             
             .control-row {
@@ -292,7 +321,18 @@
             
             .control-row label {
                 min-width: auto;
+                margin-bottom: 5px;
             }
+
+            .corner-marker, .side-marker { /* Oculta marcadores em telas pequenas */
+                display: none;
+            }
+            .gabarito-header { margin-bottom: 10mm; }
+            .student-info { margin-bottom: 10mm; }
+            .instructions { margin-top: 10mm; font-size: 10px; }
+            .option-circle { width: 7mm; height: 7mm; }
+            .options-container { gap: 5mm; }
+
         }
     </style>
 </head>
@@ -300,27 +340,27 @@
     <div class="container">
         <div class="header">
             <h1>🎯 Gerador de Gabarito com Marcadores</h1>
-            <p>Configure e imprima seu gabarito personalizado</p>
+            <p>Configure e imprima seu gabarito personalizado. <strong>Importante para impressão A4:</strong> ao imprimir (Ctrl+P), nas configurações da impressora, defina as margens como "Nenhuma" ou "Mínimas" para melhor resultado.</p>
         </div>
 
         <div class="controls">
             <div class="control-row">
-                <label>Título do Gabarito:</label>
+                <label for="gabaritoTitle">Título do Gabarito:</label>
                 <input type="text" id="gabaritoTitle" value="FOLHA DE RESPOSTAS" placeholder="Digite o título">
             </div>
             
             <div class="control-row">
-                <label>Subtítulo/Prova:</label>
+                <label for="gabaritoSubtitle">Subtítulo/Prova:</label>
                 <input type="text" id="gabaritoSubtitle" value="Avaliação - Matemática" placeholder="Nome da prova/disciplina">
             </div>
             
             <div class="control-row">
-                <label>Número de Questões:</label>
+                <label for="numQuestions">Número de Questões:</label>
                 <input type="number" id="numQuestions" value="20" min="1" max="100">
             </div>
             
             <div class="control-row">
-                <label>Alternativas:</label>
+                <label for="numOptions">Alternativas:</label>
                 <select id="numOptions">
                     <option value="4">4 opções (A, B, C, D)</option>
                     <option value="5" selected>5 opções (A, B, C, D, E)</option>
@@ -328,7 +368,7 @@
             </div>
             
             <div class="control-row">
-                <label>Layout:</label>
+                <label for="layout">Layout:</label>
                 <select id="layout">
                     <option value="1" selected>1 coluna</option>
                     <option value="2">2 colunas</option>
@@ -343,8 +383,7 @@
         </div>
 
         <div id="gabaritoContainer">
-            <!-- Gabarito será gerado aqui -->
-        </div>
+            </div>
     </div>
 
     <script>
@@ -359,24 +398,20 @@
             
             let html = `
                 <div class="gabarito">
-                    <!-- Marcadores de canto -->
                     <div class="corner-marker top-left"></div>
                     <div class="corner-marker top-right"></div>
                     <div class="corner-marker bottom-left"></div>
                     <div class="corner-marker bottom-right"></div>
                     
-                    <!-- Marcadores laterais -->
                     <div class="side-marker left"></div>
                     <div class="side-marker right"></div>
                     
-                    <!-- Cabeçalho -->
                     <div class="gabarito-header">
                         <div class="gabarito-title">${title}</div>
                         <div class="gabarito-subtitle">${subtitle}</div>
                         <div class="gabarito-subtitle">Data: ___/___/____</div>
                     </div>
                     
-                    <!-- Informações do aluno -->
                     <div class="student-info">
                         <h3>DADOS DO ESTUDANTE</h3>
                         <div class="info-row">
@@ -394,37 +429,35 @@
                         
                     </div>
                     
-                    <!-- Grid de questões -->
                     <div class="questions-grid ${layout === '2' ? 'grid-2-columns' : 'grid-1-column'}">
             `;
             
             // Gerar questões
             for (let i = 1; i <= numQuestions; i++) {
                 html += `
-                    <div class="question-row">
-                        <div class="question-number">${String(i).padStart(2, '0')}.</div>
-                        <div class="options-container">
+                        <div class="question-row">
+                            <div class="question-number">${String(i).padStart(2, '0')}.</div>
+                            <div class="options-container">
                 `;
                 
                 options.forEach(option => {
                     html += `
-                        <div class="option">
-                            <div class="option-circle"></div>
-                            <div class="option-letter">${option}</div>
-                        </div>
+                                <div class="option">
+                                    <div class="option-circle"></div>
+                                    <div class="option-letter">${option}</div>
+                                </div>
                     `;
                 });
                 
                 html += `
+                            </div>
                         </div>
-                    </div>
                 `;
             }
             
             html += `
                     </div>
                     
-                    <!-- Instruções -->
                     <div class="instructions">
                         <h4>📋 INSTRUÇÕES PARA PREENCHIMENTO:</h4>
                         <ul style="margin-left: 5mm; margin-top: 2mm;">
@@ -447,12 +480,13 @@
         }
         
         function downloadPDF() {
-            // Simula download - em uma implementação real, usaria jsPDF ou similar
-            alert('💡 Dica: Use Ctrl+P e escolha "Salvar como PDF" para baixar o gabarito!');
+            // Para uma geração de PDF mais robusta no cliente, bibliotecas como jsPDF ou html2pdf.js seriam recomendadas.
+            // Esta abordagem depende da funcionalidade "Salvar como PDF" do navegador.
+            alert('💡 Dica: Na janela de impressão, escolha "Salvar como PDF" para baixar o gabarito! Certifique-se de que as margens estejam configuradas como "Nenhuma" ou "Mínimas" nas opções de impressão.');
             window.print();
         }
         
-        // Gerar gabarito inicial
+        // Gerar gabarito inicial ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
             generateGabarito();
         });
