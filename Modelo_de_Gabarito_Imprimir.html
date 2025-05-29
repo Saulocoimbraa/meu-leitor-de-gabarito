@@ -379,7 +379,7 @@
             <div class="control-row">
                 <button class="button" onclick="generateGabarito()">🔄 Gerar Gabarito</button>
                 <button class="button" onclick="printGabarito()">🖨️ Imprimir</button>
-                <button class="button" onclick="downloadPDF()">📄 Baixar PDF</button>
+                
             </div>
         </div>
 
@@ -480,12 +480,12 @@
             window.print();
         }
         
-        function downloadPDF() {
+       /*function downloadPDF() {
             // Para uma geração de PDF mais robusta no cliente, bibliotecas como jsPDF ou html2pdf.js seriam recomendadas.
             // Esta abordagem depende da funcionalidade "Salvar como PDF" do navegador.
             alert('💡 Dica: Na janela de impressão, escolha "Salvar como PDF" para baixar o gabarito! Certifique-se de que as margens estejam configuradas como "Nenhuma" ou "Mínimas" nas opções de impressão.');
             window.print();
-        }
+        }*/
         
         // Gerar gabarito inicial ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
