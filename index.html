@@ -298,6 +298,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/opencv.js/4.5.5/opencv.js"></script>
     <script>
         class GabaritoReader {
+            generateTemplate() {
+            // Redireciona para a página do modelo de gabarito
+            window.location.href = 'Modelo_de_Gabarito_Imprimir.html'; 
+        }
             constructor() {
                 this.video = document.getElementById('video');
                 this.canvas = document.getElementById('canvas');
