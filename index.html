@@ -231,6 +231,7 @@
             }
         }
     </style>
+<link rel="preload" href="static/opencv/opencv_js.wasm" as="fetch" type="application/wasm" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
@@ -305,7 +306,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/opencv.js/4.5.5/opencv.js"></script>
+    <script src="static/opencv/opencv.js"></script>
     <script>
         class GabaritoReader {
             showLoadingBar() {
